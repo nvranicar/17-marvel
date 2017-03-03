@@ -1,6 +1,139 @@
 // @import 'yoga';
-// @import 'normalize';
+@import 'normalize';
 
 // $fa-font-path: '//netdna.bootstrapcdn.com/font-awesome/4.3.0/fonts';
 // @import 'font-awesome';
 @import 'box-sizing';
+
+$c-brand-navy: #2c3e50;
+$c-brand-white: #ecf0f1;
+$c-brand-dark-gray: #3b3b3b;
+$c-brand-font-reg: 'Maven Pro', sans-serif;
+$c-brand-font-special: 'Special Elite', sans-serif;
+$c-brand-modal-bg: rgba(0, 0, 0, 0.8);
+
+$m-gutter: 1rem;
+$m-container-width: 60rem;
+$m-brand-border-radius: 0.4rem;
+
+$b-brand-border: 1px solid #000;
+
+// font-family: 'Maven Pro', sans-serif;
+// font-family: 'Special Elite', cursive;
+
+* {
+  box-sizing: border-box;
+  font-family: $c-brand-font-reg;
+}
+
+img {
+  max-width: 100%;
+  border-radius: $m-brand-border-radius;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  font-family: $c-brand-font-special;
+}
+
+h3 {
+  font-family: $c-brand-font-special;
+  font-size: 1.5rem;
+}
+
+.section {
+  padding: 1rem;
+}
+
+.container {
+  max-width: 65rem;
+  margin: 0 auto;
+}
+
+.top-nav {
+  width: 100%;
+  background: $c-brand-navy;
+  margin: -0.5rem 0;
+  padding: 0.5rem 0;
+  color: $c-brand-white;
+}
+
+.page-content {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 0;
+
+  &__left {
+    flex-basis: calc(33% - 1rem);
+    margin: 0.5rem;
+  }
+
+  &__right {
+    flex-basis: calc(66% - 1rem);
+    margin: -0.5rem $m-gutter;
+    overflow: scroll;
+  }
+}
+
+.underlined {
+  border-bottom: 0.1rem $c-brand-modal-bg solid;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    flex-basis: calc(25% - 1rem);
+    margin: 0.5rem;
+  }
+}
+
+.read-more {
+  width: 100%;
+  background: $c-brand-navy;
+  border: none;
+  border-radius: $m-brand-border-radius;
+  font-size: 0.8rem;
+  color: $c-brand-white;
+  padding: 0.5rem;
+}
+
+.pic-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.pic-wrapper:before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.card {
+  &__pic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+.focus {
+  &__pic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+}
