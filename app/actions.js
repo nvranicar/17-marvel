@@ -15,7 +15,7 @@ export function charactersFindForId(id) {
     fetch(`http://marvel-is-broke.herokuapp.com/series/${id}/characters`)
       .then(r => r.json())
       .then((data) => {
-        next(charactersLoadComplete(data));
+        next(charactersLoadComplete(data.data.results));
       });
   };
 }
@@ -25,7 +25,7 @@ export function comicsFindForId(id) {
     fetch(`http://marvel-is-broke.herokuapp.com/series/${id}/comics`)
       .then(r => r.json())
       .then((data) => {
-        next(comicsLoadComplete(data));
+        next(comicsLoadComplete(data.data.results));
       });
   };
 }
@@ -34,10 +34,10 @@ export function seriesInfoSearch(name) {
   return (next) => {
     fetch(`http://marvel-is-broke.herokuapp.com/series?limit=1&titleStartsWith=${name}`)
       .then(r => r.json())
-      .then((info) => {
-        next(seriesInfoLoadComplete(info.data.results[0]));
-        next(charactersFindForId(info.data.results[0].id));
-        next(comicsFindForId(info.data.results[0].id));
+      .then((data) => {
+        next(seriesInfoLoadComplete(data.data.results[0]));
+        next(charactersFindForId(data.data.results[0].id));
+        next(comicsFindForId(data.data.results[0].id));
       });
   };
 }

@@ -9,17 +9,15 @@
       <div class="container">
         <div class="page-content">
           <div class="page-content__left">
-            <div class="focus">
+            <div class="focus" v-if="seriesInfo">
               <div class="pic-wrapper">
-                <img src="http://placecorgi.com/400/400" alt="" class="focus__pic">
+                <img v-bind:src="`${seriesInfo.thumbnail.path}.${seriesInfo.thumbnail.extension}`" alt="" class="focus__pic">
               </div>
-              <h2 class="focus__name">comic name here</h2>
-              <p class="focus__years">20xx-20xx</p>
+              <h2 class="focus__name">{{seriesInfo.title}}</h2>
+              <p class="focus__years">{{`${seriesInfo.startYear}-${seriesInfo.endYear}`}}</p>
               <h3 class="focus__creators-heading underlined">Creators</h3>
               <ul class="focus__creators">
-                <li class="creator">Creator name goes here</li>
-                <li class="creator">Creator name goes here</li>
-                <li class="creator">Creator name goes here</li>
+                <li class="creator" v-for="creator in seriesInfo.creators.items">{{creator.name}}</li>
               </ul>
             </div>
           </div>
@@ -27,99 +25,13 @@
             <div class="content-section">
               <h1 class="content-section__heading underlined">Characters</h1>
               <div class="grid">
-                <div class="grid__item">
-                  <div class="card">
-                    <div class="pic-wrapper">
-                      <img src="http://fillmurray.com/200/200" alt="" class="card__pic">
-                    </div>
-                    <div class="card__text">
-                      <h4 class="card__title">Character Name</h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="grid__item">
-                  <div class="card">
-                    <div class="pic-wrapper">
-                      <img src="http://fillmurray.com/200/200" alt="" class="card__pic">
-                    </div>
-                    <div class="card__text">
-                      <h4 class="card__title">Character Name</h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="grid__item">
-                  <div class="card">
-                    <div class="pic-wrapper">
-                      <img src="http://fillmurray.com/200/200" alt="" class="card__pic">
-                    </div>
-                    <div class="card__text">
-                      <h4 class="card__title">Character Name</h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="grid__item">
-                  <div class="card">
-                    <div class="pic-wrapper">
-                      <img src="http://fillmurray.com/200/200" alt="" class="card__pic">
-                    </div>
-                    <div class="card__text">
-                      <h4 class="card__title">Character Name</h4>
-                    </div>
-                  </div>
-                </div>
+                <character-item v-for="character in characterData" v-bind:characters="character"></character-item>
               </div>
             </div>
             <div class="content-section">
               <h1 class="content-section__heading underlined">Comics</h1>
               <div class="grid">
-                <div class="grid__item">
-                  <div class="card">
-                    <div class="pic-wrapper">
-                      <img src="http://fillmurray.com/200/200" alt="" class="card__pic">
-                    </div>
-                    <div class="card__text">
-                      <h4 class="card__title">#1</h4>
-                      <p class="card__subtitle">Issue Title</p>
-                      <button class="read-more">Read More</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="grid__item">
-                  <div class="card">
-                    <div class="pic-wrapper">
-                      <img src="http://fillmurray.com/200/200" alt="" class="card__pic">
-                    </div>
-                    <div class="card__text">
-                      <h4 class="card__title">#1</h4>
-                      <p class="card__subtitle">Issue Title</p>
-                      <button class="read-more">Read More</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="grid__item">
-                  <div class="card">
-                    <div class="pic-wrapper">
-                      <img src="http://fillmurray.com/200/200" alt="" class="card__pic">
-                    </div>
-                    <div class="card__text">
-                      <h4 class="card__title">#1</h4>
-                      <p class="card__subtitle">Issue Title</p>
-                      <button class="read-more">Read More</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="grid__item">
-                  <div class="card">
-                    <div class="pic-wrapper">
-                      <img src="http://fillmurray.com/200/200" alt="" class="card__pic">
-                    </div>
-                    <div class="card__text">
-                      <h4 class="card__title">#1</h4>
-                      <p class="card__subtitle">Issue Title</p>
-                      <button class="read-more">Read More</button>
-                    </div>
-                  </div>
-                </div>
+                <comic-item v-for="comic in comicData" v-bind:comics="comic"></comic-item>
               </div>
             </div>
           </div>
@@ -130,10 +42,27 @@
 </template>
 
 <script>
+import store from '../store';
+import { seriesInfoSearch } from '../actions';
+import characterItem from './character-item.vue';
+import comicItem from './comic-item.vue';
+
 export default {
+  components: {
+    characterItem,
+    comicItem,
+  },
+
   data() {
     return {
+      seriesInfo: this.$select('seriesInfo'),
+      characterData: this.$select('characterData'),
+      comicData: this.$select('comicData'),
     };
+  },
+
+  created() {
+    store.dispatch(seriesInfoSearch('thor'));
   },
 
   methods: {

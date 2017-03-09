@@ -1,4 +1,4 @@
-export default function characterData(state = {}, action) {
+export default function characterData(state = [], action) {
   switch (action.type) {
     case 'CHARACTERDATA@GET_COMPLETE':
       return action.data;
