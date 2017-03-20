@@ -10,6 +10,16 @@ export function comicsLoadComplete(data) {
   return { type: 'COMICDATA@GET_COMPLETE', data };
 }
 
+export function modalLoadComplete(data) {
+  return { type: 'MODAL@SET', data };
+}
+
+export function clearModal() {
+  return {
+    type: 'MODAL@CLEAR',
+  };
+}
+
 export function charactersFindForId(id) {
   return (next) => {
     fetch(`http://marvel-is-broke.herokuapp.com/series/${id}/characters`)

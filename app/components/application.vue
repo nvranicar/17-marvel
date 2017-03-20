@@ -31,9 +31,15 @@
             <div class="content-section">
               <h1 class="content-section__heading underlined">Comics</h1>
               <div class="grid">
-                <comic-item v-for="comic in comicData" v-bind:comics="comic"></comic-item>
+                <comic-item v-for="comic in comicData" v-bind:comics="comic" @readmore="showModal"></comic-item>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="modal-background" v-if="modal">
+          <div class="modal">
+            <button class="close" @click="closeModal()">x</button>
+            <p>{{modal.description}}</p>
           </div>
         </div>
       </div>
@@ -43,7 +49,7 @@
 
 <script>
 import store from '../store';
-import { seriesInfoSearch } from '../actions';
+import { seriesInfoSearch, clearModal, modalLoadComplete } from '../actions';
 import characterItem from './character-item.vue';
 import comicItem from './comic-item.vue';
 
@@ -58,15 +64,22 @@ export default {
       seriesInfo: this.$select('seriesInfo'),
       characterData: this.$select('characterData'),
       comicData: this.$select('comicData'),
+      modal: this.$select('modal'),
     };
   },
 
   created() {
-    store.dispatch(seriesInfoSearch('thor'));
+    store.dispatch(seriesInfoSearch('incredible'));
   },
 
   methods: {
+    showModal(data) {
+      store.dispatch(modalLoadComplete(data));
+    },
 
+    closeModal(data) {
+      store.dispatch(clearModal(data));
+    }
   },
 };
 </script>
