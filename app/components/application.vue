@@ -7,6 +7,10 @@
     </div>
     <div class="section">
       <div class="container">
+        <div class="search">
+          <input type="text" class="search__bar" v-model="searchInput" placeholder="Find a Marvel Superhero">
+          <button v-on:click="search(searchInput)" class="search__button">Search</button>
+        </div>
         <div class="page-content">
           <div class="page-content__left">
             <div class="focus" v-if="seriesInfo">
@@ -79,6 +83,10 @@ export default {
 
     closeModal(data) {
       store.dispatch(clearModal(data));
+    },
+
+    search(data) {
+      store.dispatch(seriesInfoSearch(data));
     }
   },
 };

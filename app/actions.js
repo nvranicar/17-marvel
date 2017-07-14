@@ -41,8 +41,17 @@ export function comicsFindForId(id) {
 }
 
 export function seriesInfoSearch(name) {
+  function getFirstWord(str) {
+    const spacePosition = str.indexOf(' ');
+    if (spacePosition === -1)
+      return str;
+    else
+            return str.substr(0, spacePosition);
+  }
+  const first = getFirstWord(name);
+
   return (next) => {
-    fetch(`http://marvel-is-broke.herokuapp.com/series?limit=1&titleStartsWith=${name}`)
+    fetch(`http://marvel-is-broke.herokuapp.com/series?limit=1&titleStartsWith=${first}`)
       .then(r => r.json())
       .then((data) => {
         next(seriesInfoLoadComplete(data.data.results[0]));

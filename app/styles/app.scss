@@ -66,6 +66,16 @@ h3 {
   color: $c-brand-white;
 }
 
+.search {
+  display: flex;
+  margin: 0.5rem;
+  padding: 0;
+
+  &__bar {
+    width: 100%;
+  }
+}
+
 .page-content {
   display: flex;
   justify-content: space-between;
